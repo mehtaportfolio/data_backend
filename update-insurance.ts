@@ -1,3 +1,0 @@
-import fs from \"fs\";  
-const content = fs.readFileSync(\"../../../src/server/src/routes/insurancePolicies.ts.bak\", \"utf8\");  
-const deleteFunc = \"\nasync function deleteFileFromStorage(fileUrl: string): Promise(void) {\n  try {\n    if (!fileUrl) return;\n    const urlParts = fileUrl.split(\\\"policy/\\\");\n    if (urlParts.length ( 2) return;\n    let filePath = urlParts[1];\n    filePath = filePath.split(\\\"?\\\")[0];\n    if (!filePath) return;\n    await supabase.storage.from(\\\"policy\\\").remove([filePath]);\n  } catch (error) {\n    console.error(\\\"Failed to delete file from storage:\\\", error);\n  }\n}\n\"; 
