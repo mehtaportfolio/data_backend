@@ -8,6 +8,7 @@ import insurancePoliciesRoutes from './routes/insurancePolicies.js';
 import depositsRoutes from './routes/deposits.js';
 import websiteRoutes from './routes/websites.js';
 import serviceRoutes from './routes/service.js';
+import dashboardRoutes from './routes/dashboard.js';
 
 dotenv.config();
 
@@ -34,6 +35,7 @@ app.use('/api/insurance-policies', insurancePoliciesRoutes);
 app.use('/api/deposits', depositsRoutes);
 app.use('/api/websites', websiteRoutes);
 app.use('/api/service', serviceRoutes);
+app.use('/api/dashboard', dashboardRoutes);
 
 app.use((req, res) => {
   res.status(404).json({ success: false, error: 'Route not found' });
