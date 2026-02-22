@@ -81,6 +81,15 @@ export interface Deposit {
   updated_at?: string;
 }
 
+export interface DummyTable {
+  id: string;
+  sr_no: number;
+  index_no: number;
+  point_no: number;
+  created_at: string;
+  updated_at?: string;
+}
+
 export interface Website {
   id: string;
   account_owner: string;

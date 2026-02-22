@@ -6,11 +6,15 @@ import creditCardRoutes from './routes/creditCards.js';
 import generalDocumentsRoutes from './routes/generalDocuments.js';
 import insurancePoliciesRoutes from './routes/insurancePolicies.js';
 import depositsRoutes from './routes/deposits.js';
+import dummyTableRoutes from './routes/dummyTable.js';
 import websiteRoutes from './routes/websites.js';
 import serviceRoutes from './routes/service.js';
 import dashboardRoutes from './routes/dashboard.js';
+import { initializeScheduler } from './utils/scheduler.js';
 
 dotenv.config();
+
+initializeScheduler();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -33,6 +37,7 @@ app.use('/api/credit-cards', creditCardRoutes);
 app.use('/api/general-documents', generalDocumentsRoutes);
 app.use('/api/insurance-policies', insurancePoliciesRoutes);
 app.use('/api/deposits', depositsRoutes);
+app.use('/api/dummy-table', dummyTableRoutes);
 app.use('/api/websites', websiteRoutes);
 app.use('/api/service', serviceRoutes);
 app.use('/api/dashboard', dashboardRoutes);
