@@ -75,8 +75,9 @@ export interface Deposit {
   id: string;
   deposit_date: string;
   amount: number;
-  bank_name: string;
-  branch?: string;
+  source: string;
+  account_name?: string;
+  deposit_type?: string;
   created_at: string;
   updated_at?: string;
 }
