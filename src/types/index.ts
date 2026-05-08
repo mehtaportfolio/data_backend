@@ -107,6 +107,13 @@ export interface Website {
   updated_at?: string;
 }
 
+export interface BarcodeScan {
+  id?: string;
+  barcode_value: string;
+  index: string;
+  created_at?: string;
+}
+
 export interface ApiResponse<T> {
   success: boolean;
   data?: T;

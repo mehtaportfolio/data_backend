@@ -10,6 +10,7 @@ import dummyTableRoutes from './routes/dummyTable.js';
 import websiteRoutes from './routes/websites.js';
 import serviceRoutes from './routes/service.js';
 import dashboardRoutes from './routes/dashboard.js';
+import flutterRoutes from './routes/flutter.js';
 import { initializeScheduler } from './utils/scheduler.js';
 
 dotenv.config();
@@ -41,6 +42,7 @@ app.use('/api/dummy-table', dummyTableRoutes);
 app.use('/api/websites', websiteRoutes);
 app.use('/api/service', serviceRoutes);
 app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/flutter', flutterRoutes);
 
 app.use((req, res) => {
   res.status(404).json({ success: false, error: 'Route not found' });
