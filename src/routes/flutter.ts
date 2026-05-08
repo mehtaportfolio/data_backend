@@ -18,7 +18,11 @@ router.get('/indices', async (req: Request, res: Response<ApiResponse<string[]>>
       });
     }
 
-    const indices = Array.from(new Set(data.map((item: any) => item.index.toString()))).sort();
+    const indices = Array.from(new Set((data || [])
+      .map((item: any) => item.index?.toString())
+      .filter((idx: any) => idx !== undefined && idx !== null)
+    )).sort();
+    
     res.json({ success: true, data: indices });
   } catch (err: unknown) {
     const errorMessage = err instanceof Error ? err.message : 'Internal server error';
@@ -118,6 +122,28 @@ router.delete('/scans', async (req: Request, res: Response<ApiResponse<null>>) =
       return res.status(500).json({
         success: false,
         error: `Failed to delete scans: ${error.message}`,
+      });
+    }
+
+    res.json({ success: true });
+  } catch (err: unknown) {
+    const errorMessage = err instanceof Error ? err.message : 'Internal server error';
+    res.status(500).json({ success: false, error: errorMessage });
+  }
+});
+
+// Delete all scans
+router.delete('/scans/all', async (req: Request, res: Response<ApiResponse<null>>) => {
+  try {
+    const { error } = await supabase
+      .from('barcode_scans')
+      .delete()
+      .neq('id', '00000000-0000-0000-0000-000000000000'); // Delete all
+
+    if (error) {
+      return res.status(500).json({
+        success: false,
+        error: `Failed to clear table: ${error.message}`,
       });
     }
 
