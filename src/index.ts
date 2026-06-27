@@ -25,8 +25,34 @@ const PORT = process.env.PORT || 3000;
 const CORS_ORIGIN = process.env.CORS_ORIGIN;
 
 app.use(express.json({ limit: '10mb' }));
+
+const allowedOrigins = (process.env.CORS_ORIGIN || '')
+  .split(',')
+  .map(origin => origin.trim())
+  .filter(Boolean);
+
 app.use(cors({
-  origin: CORS_ORIGIN || '*',
+  origin: (origin, callback) => {
+    // Mobile apps, Postman, server-to-server requests
+    if (!origin) {
+      return callback(null, true);
+    }
+
+    // Allow any localhost port (Flutter Web / React dev)
+    if (
+      origin.startsWith('http://localhost:') ||
+      origin.startsWith('http://127.0.0.1:')
+    ) {
+      return callback(null, true);
+    }
+
+    // Allow configured production origins
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    callback(new Error(`CORS not allowed for ${origin}`));
+  },
   credentials: true
 }));
 
